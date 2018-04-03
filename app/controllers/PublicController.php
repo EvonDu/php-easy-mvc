@@ -1,7 +1,6 @@
 <?php
 namespace app\controllers;
 
-use core\ApiResult;
 use core\Controller;
 use core\Url;
 

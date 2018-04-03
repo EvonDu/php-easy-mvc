@@ -2,25 +2,28 @@
 namespace core;
 
 class Models{
+    //region 模型属性
+
     //设置表名
-    public function getTable(){
+    static public function getTable(){
         return "";
     }
 
     //设置主键名
-    public function getPk(){
+    static public function getPk(){
         return "id";
     }
 
     //属性名设置
-    public function attributeLabels()
+    static public function attributeLabels()
     {
         return array();
     }
 
     //获取属性名
-    public function attributeLabel($field){
-        $lables = $this->attributeLabels();
+    static public function attributeLabel($field){
+        $class = get_called_class();
+        $lables = $class::attributeLabels();
         if(array_key_exists($field,$lables))
             return $lables[$field];
         else
@@ -31,6 +34,8 @@ class Models{
     public function load($data = array()){
         //获取所有属性
         $propertys = array_keys(get_object_vars($this));
+        unset($propertys["table"]);
+        unset($propertys["pk"]);
 
         //加载变量
         foreach ($propertys as $key){
@@ -42,10 +47,12 @@ class Models{
         return true;
     }
 
+    //endregion;
+
     //region 数据操作
 
     //连接数据库
-    public function connect(){
+    static public function connect(){
         //$dsn
         $dbms = App::$conf['database']['dbms'];
         $host = App::$conf['database']['host'];
@@ -67,16 +74,17 @@ class Models{
     }
 
     //查询构造
-    public function find($condition = array()){
+    static public function find($condition = array()){
         //设置SQL
-        $table = $this->getTable();
+        $class = get_called_class();
+        $table = $class::getTable();
         $sql = "SELECT * from $table";
 
         //添加条件
-        $sql = $this->loadCondition($sql,$condition);
+        $sql = self::loadCondition($sql,$condition);
 
         //查询结果
-        $result = $this->connect()->prepare($sql);//准备查询语句
+        $result = self::connect()->prepare($sql);//准备查询语句
         $result->execute();
 
         //返回查询结果
@@ -84,16 +92,17 @@ class Models{
     }
 
     //查询列表
-    public function findAll($condition = array()){
+    static public function findAll($condition = array()){
         //查询
-        $result = $this->find($condition);
+        $result = self::find($condition);
 
         //处理查询结果
         $list = array();
         $search = $result->fetchAll();
         if($search){
             foreach ($search as $row) {
-                $class = get_class($this);
+                //$class = get_class($this);
+                $class = get_called_class();
                 $model = new $class();
                 $model->load($row);
                 $list[] = $model;
@@ -105,29 +114,30 @@ class Models{
     }
 
     //查询单个
-    public function findOne($condition = array()){
+    static public function findOne($condition = array()){
         //查询
-        $result = $this->find($condition);
+        $result = self::find($condition);
 
         //获取结果
         $search = $result->fetch();
-        $class = get_class($this);
-        $model = new $class();
-        $model->load($search);
 
-        //返回查询结果
-        return $model;
+        //处理结果并返回
+        if($search){
+            $class = get_called_class();
+            $model = new $class();
+            $model->load($search);
+            return $model;
+        }
+        else{
+            return null;
+        }
     }
 
     //保存
     public function save(){
+        //生命周期
         $this->beforeSave();
 
-        return $this->replace();
-    }
-
-    //替换
-    public function replace(){
         //处理属性
         $data = $this->getSaveData();
         if(!$data) return true;
@@ -193,17 +203,17 @@ class Models{
     //region 辅助方法
 
     //载入条
-    private function loadCondition($sql, $condition = array()){
+    static private function loadCondition($sql, $condition = array()){
         //添加条件
         if($condition){
             $f = true;
             foreach ($condition as $key => $value){
                 if($f){
-                    $sql .= " Where $key = $value";
+                    $sql .= " Where $key = '$value'";
                     $f = false;
                 }
                 else{
-                    $sql .= " And $key = $value";
+                    $sql .= " And $key = '$value'";
                 }
             }
         }

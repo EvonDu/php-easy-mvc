@@ -2,7 +2,7 @@
 namespace core;
 
 class App{
-    static $conf = [];
+    static $conf = array();
 
     static private function init(){
         self::$conf = array_merge(
@@ -14,7 +14,13 @@ class App{
     static public function run(){
         //初始化
         self::init();
+        Identity::init(self::$conf);
 
+        //路由
+        self::route();
+    }
+
+    static private function route(){
         //获取调用方法
         list($class,$function) = self::getClassFunction();
         //判断类是否存在
@@ -23,6 +29,9 @@ class App{
             $controller->$function();
         }
         else{
+            //DEBUG
+            var_dump($class);
+            var_dump($function);
             //输出404
             header("HTTP/1.1 404 Not Found");
             header("Status: 404 Not Found");

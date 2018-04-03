@@ -21,6 +21,12 @@ class Url{
         return $url;
     }
 
+    //跳转Url
+    static public function go($path,$params = array()) {
+        $url = self::to($path,$params);
+        header("Location:$url");
+    }
+
     //获取访问
     static public function path($path){
         return WEBROOT."$path";

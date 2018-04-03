@@ -4,26 +4,26 @@ namespace app\models\article;
 use core\Models;
 
 class Article extends Models {
-    public $a_id,$title,$create_time,$intro,$content,$img;
+    public $id;
+    public $title;
+    public $intro;
+    public $image;
+    public $content;
+    public $create_time;
 
-    public function getTable(){
+    static public function getTable(){
         return "article";
     }
 
-    public function getPk()
-    {
-        return "a_id";
-    }
-
-    public function attributeLabels()
+    static public function attributeLabels()
     {
         return array(
-            'a_id'=>"ID",
+            'id'=>"ID",
             'title'=>"标题",
-            'create_time'=>"创建时间",
             'intro'=>"介绍",
+            'image'=>"封面",
             'content'=>"内容",
-            'img'=>"封面",
+            'create_time'=>"创建时间",
         );
     }
 

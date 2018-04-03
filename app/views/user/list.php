@@ -3,7 +3,7 @@
 ?>
 
 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
-    <legend>文章列表</legend>
+    <legend>下载文档</legend>
 </fieldset>
 
 
@@ -20,9 +20,9 @@
     <thead>
     <tr>
         <th>ID</th>
-        <th>标题</th>
-        <th>介绍</th>
-        <th>创建时间</th>
+        <th>用户名</th>
+        <th>名称</th>
+        <th>电话</th>
         <th>操作</th>
     </tr>
     </thead>
@@ -30,9 +30,9 @@
         <?php foreach ($list as $model):?>
             <tr>
                 <td><?php echo $model->id?></td>
-                <td><?php echo $model->title?></td>
-                <td><?php echo $model->intro?></td>
-                <td><?php echo date("Y-m-d",$model->create_time)?></td>
+                <td><?php echo $model->username?></td>
+                <td><?php echo $model->name?></td>
+                <td><?php echo $model->phone?></td>
                 <td>
                     <a href="<?php echo Url::to("update",array("id"=>$model->id))?>">修改</a>
                     <a href="javascript:remove('<?php echo Url::to("delete",array("id"=>$model->id))?>')">删除</a>

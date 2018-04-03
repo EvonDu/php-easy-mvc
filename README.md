@@ -8,7 +8,7 @@
 - 视图类：app/views
 
 ### 访问方法
-例子：`http://localhost/easy-mvc/index.php/Article/update?a_id=2`
+例子：`http://localhost/easy-mvc/index.php/Article/update?id=2`
 - 访问的控制器为：`Article`
 - 访问的方法为：`update`
-- 访问的参数为：`a_id=2`
+- 访问的参数为：`id=2`

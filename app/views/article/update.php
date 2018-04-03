@@ -30,8 +30,22 @@
         </div>
     </div>
 
+    <div class="layui-form-item">
+        <label class="layui-form-label">封面</label>
+        <div class="layui-input-block">
+            <img id="update-images" width="175px" height="175px" src="<?php echo $model->image?>">
+        </div>
+    </div>
 
-    <input type="hidden" name="a_id" value="<?php echo $model->a_id?>">
+    <div class="layui-form-item">
+        <label class="layui-form-label"></label>
+        <div class="layui-input-block">
+            <button type="button" class="layui-btn" id="update-button"><i class="layui-icon">&#xe67c;</i>上传图片</button>
+            <input type="hidden" name="Article[image]" value="<?php echo $model->image?>">
+        </div>
+    </div>
+
+    <input type="hidden" name="id" value="<?php echo $model->id?>">
 
     <div class="layui-form-item">
         <div class="layui-input-block">
@@ -51,5 +65,25 @@
             }
         });
         layedit.build('edit'); //建立编辑器
+    });
+    layui.use('upload', function(){
+        var upload = layui.upload;
+        //执行实例
+        var uploadInst = upload.render({
+            elem: '#update-button',
+            accept: 'file',
+            url: '<?php echo Url::to("/Public/layuiUpload")?>',
+            done: function(res){
+                //上传完毕回调
+                if(res.code == 0){
+                    if(res.data.src)
+                        $("#update-images").attr("src" ,res.data.src);
+                        $("input[name='Article[image]']").val(res.data.src);
+                }
+            },
+            error: function(){
+                //请求异常回调
+            }
+        });
     });
 </script>
