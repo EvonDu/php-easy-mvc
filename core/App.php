@@ -26,15 +26,21 @@ class App{
         //判断类是否存在
         if(class_exists($class)){
             $controller = new $class();
-            $controller->$function();
+            //判断方式是否存在
+            if(method_exists($controller,$function))
+                $controller->$function();
+            else
+                echo $class."未定义方法:".$function;
         }
         else{
+            //输出
+            echo $class."不存在";
             //DEBUG
-            var_dump($class);
-            var_dump($function);
+            //var_dump($class);
+            //var_dump($function);
             //输出404
-            header("HTTP/1.1 404 Not Found");
-            header("Status: 404 Not Found");
+            //header("HTTP/1.1 404 Not Found");
+            //header("Status: 404 Not Found");
             exit;
         }
     }
@@ -46,7 +52,8 @@ class App{
         $root = $_SERVER['SCRIPT_NAME'];
         $request = $_SERVER['REQUEST_URI'];
         //获得index.php 后面的地址
-        $url = trim(str_replace($root, '', $request), '/');
+        //下面判断用来防止省略index.php时，$request不包含index.php但root包含，导致路由错误
+        $url = ($root < $request)?trim(str_replace($root, '', $request), '/'):"";
         //去除参数
         if($paramsIndex = strpos($url,"?"))
             $url = substr($url,0,$paramsIndex);
