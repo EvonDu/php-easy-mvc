@@ -29,7 +29,7 @@ class PublicController extends Controller {
                 //生成URL
                 $url = Url::path("$relativePath");
                 //生成返回
-                $result = ["src"=>$url];
+                $result = array("src"=>$url);
                 //返回
                 $this->result(0,"success",$result);
             }
@@ -45,7 +45,7 @@ class PublicController extends Controller {
     //LayuiApi返回
     public function result($code,$msg,$data){
         header('Content-type: application/json');
-        $result = ["code"=>$code, "msg"=>$msg, "data"=>$data];
+        $result = array("code"=>$code, "msg"=>$msg, "data"=>$data);
         exit(json_encode($result));
 
     }

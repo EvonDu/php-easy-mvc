@@ -2,10 +2,6 @@
 use core\Url;
 ?>
 
-<!-- summernote -->
-<link rel="stylesheet" href="<?php echo WEBROOT?>/assets/summernote/summernote.css">
-<script src="<?php echo WEBROOT?>/assets/summernote/summernote.min.js"></script>
-
 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
     <legend>修改文档</legend>
 </fieldset>
@@ -30,7 +26,7 @@ use core\Url;
     <div class="layui-form-item">
         <label class="layui-form-label"></label>
         <div class="layui-input-block">
-            <button type="button" class="layui-btn" id="update-file"><i class="layui-icon">&#xe67c;</i>上传图片</button>
+            <button type="button" class="layui-btn" id="update-file"><i class="layui-icon">&#xe67c;</i>上传文件</button>
         </div>
     </div>
 

@@ -2,10 +2,6 @@
 use core\Url;
 ?>
 
-<!-- summernote -->
-<link rel="stylesheet" href="<?php echo WEBROOT?>/assets/summernote/summernote.css">
-<script src="<?php echo WEBROOT?>/assets/summernote/summernote.min.js"></script>
-
 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
     <legend>添加用户</legend>
 </fieldset>

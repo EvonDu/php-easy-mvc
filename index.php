@@ -1,6 +1,7 @@
 <?php
 //加载
 include "vendor/autoload.php";
+include "method/get_called_class.php";
 
 //引入
 use core\App;

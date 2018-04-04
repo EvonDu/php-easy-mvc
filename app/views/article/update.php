@@ -49,7 +49,7 @@
 
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <button type="submit" class="layui-btn" lay-submit>立即提交</button>
+            <button class="layui-btn" lay-submit lay-filter="*">立即提交</button>
             <button class="layui-btn layui-btn-primary" onclick="window.history.back();">返回</button>
         </div>
     </div>
@@ -85,5 +85,10 @@
                 //请求异常回调
             }
         });
+    });
+    layui.use('form', function(){
+        var form = layui.form;
+        //监听提交
+        form.on('submit(*)', function(data){});
     });
 </script>

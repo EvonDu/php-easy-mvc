@@ -98,7 +98,7 @@ class App{
 
         //获取Class和Function
         $class = "app\\controllers\\".implode('\\',$uri_class)."Controller";
-        if(count($uri) == count($uri_class))
+        if(count($uri) == count($uri_class) || empty($uri_class))
             $function = "index";
         else
             $function = array_pop($uri);

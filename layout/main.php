@@ -1,7 +1,7 @@
 <?php
-    use core\Url;
-    use core\Identity;
-    $nav = include("nav.php");
+use core\Url;
+use core\Identity;
+$nav = include("nav.php");
 ?>
 
 <!DOCTYPE html>
