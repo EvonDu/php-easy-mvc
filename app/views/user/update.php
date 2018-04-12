@@ -3,7 +3,7 @@ use core\Url;
 ?>
 
 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
-    <legend>添加用户</legend>
+    <legend>修改用户</legend>
 </fieldset>
 
 <form class="layui-form" method="post">

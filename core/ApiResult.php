@@ -24,7 +24,7 @@ class ApiResult{
         header('Content-type: application/json');
         $result = self::getResultObject();
         $result->state->code = $code;
-        $result->state->massage = $msg;
+        $result->state->message = $msg;
         $result->data = $data;
         exit(json_encode($result));
     }
@@ -35,7 +35,7 @@ class ApiResult{
         $result = (object)array(
             "state"=>(object)array(
                 "code"=>0,
-                "massage"=>"OK",
+                "message"=>"OK",
             ),
             "data"=>null
         );

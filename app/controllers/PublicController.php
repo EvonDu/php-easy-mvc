@@ -14,7 +14,7 @@ class PublicController extends Controller {
 
             //生成文件路径
             $tempname = $file["tmp_name"];                                            //文件位置
-            $filename = $file["name"];                                                //文件名
+            $filename = uniqid();                                                     //文件名
             $date = date("Ymd");                                             //日期
             $dataPath = "upload/$date";                                               //文档路径
             $relativePath = "$dataPath/$filename";                                    //相对路径
